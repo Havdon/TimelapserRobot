@@ -1,4 +1,3 @@
-massive-ironman
-===============
+Joulun robokurssi 2014
 
-Joulun robokurssin 2014 pohja
+Oskar Koli
