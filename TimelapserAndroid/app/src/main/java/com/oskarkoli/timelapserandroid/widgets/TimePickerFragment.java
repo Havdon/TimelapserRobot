@@ -13,7 +13,7 @@ import com.ikovac.timepickerwithseconds.view.MyTimePickerDialog;
 import com.oskarkoli.timelapserandroid.util.TimeObject;
 
 /**
- * Created by Oskar Koli on 04/01/2015.
+ * Fragment that opens the time picker dialog, used for the selection of the wanted length of the video.
  */
 public class TimePickerFragment extends DialogFragment
         implements MyTimePickerDialog.OnTimeSetListener {
@@ -22,10 +22,17 @@ public class TimePickerFragment extends DialogFragment
     private TimeObject mStartTime;
     private int mDialogType;
 
+    /**
+     * Sets the handler that is used to send messages to the activity.
+     * @param uiHandler
+     */
     public void setHandler(Handler uiHandler) {
         mUiHandler = uiHandler;
     }
 
+    /**
+     * Sets the initial time shown in the time dials
+     */
     public void setStartTime(TimeObject obj) {
         mStartTime = obj;
     }

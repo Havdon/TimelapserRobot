@@ -15,7 +15,7 @@ import com.oskarkoli.timelapserandroid.ExecutingActivity;
 import com.oskarkoli.timelapserandroid.util.TimeObject;
 
 /**
- * Created by Oskar Koli on 05/01/2015.
+ * Fragment which creates the dialog where picture interval (frequency) is selected.
  */
 public class IntervalPickerFragment extends DialogFragment implements DialogInterface.OnClickListener {
     private Handler mUiHandler;
@@ -24,10 +24,17 @@ public class IntervalPickerFragment extends DialogFragment implements DialogInte
     private final String[] INTERVAL_OPTIONS_STRING = {"0.5 sec", "1 sec", "2 sec", "5 sec", "10 sec", "30 sec", "60 sec"};
     private final float[] INTERVAL_OPTIONS_INT = {0.5f, 1f, 2f, 5f, 10f, 30f, 60f};
 
+    /**
+     * Sets the handler that is used to send messages to the activity.
+     * @param uiHandler
+     */
     public void setHandler(Handler uiHandler) {
         mUiHandler = uiHandler;
     }
 
+    /**
+     * Sets the initial time shown in the time dials
+     */
     public void setStartTime(TimeObject obj) {
         mStartTime = obj;
     }

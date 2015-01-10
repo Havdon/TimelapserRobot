@@ -72,6 +72,10 @@ public class StreamManager implements SurfaceHolder.Callback, MediaPlayer.OnPrep
     }
 
 
+    /**
+     * Releases the stream.
+     * Init has to be called if stream has been released and you want to start stream again.
+     */
     public void release() {
         if(!mIsValid) return;
         stop();
@@ -79,6 +83,11 @@ public class StreamManager implements SurfaceHolder.Callback, MediaPlayer.OnPrep
         mIsValid = false;
     }
 
+    /**
+     * Initializes the stream. Should call when class is first created and when it has been release.
+     * @param activity
+     * @param uiHandler
+     */
     public void init(Activity activity, Handler uiHandler) {
         mActivity = activity;
         if(!LibsChecker.checkVitamioLibs(activity))

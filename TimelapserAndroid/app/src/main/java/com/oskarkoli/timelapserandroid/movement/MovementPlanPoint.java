@@ -3,7 +3,7 @@ package com.oskarkoli.timelapserandroid.movement;
 import com.oskarkoli.timelapserandroid.RobotMessage;
 
 /**
- * Created by Oskar Koli on 04/01/2015.
+ * Point in movement plan
  */
 public class MovementPlanPoint {
 

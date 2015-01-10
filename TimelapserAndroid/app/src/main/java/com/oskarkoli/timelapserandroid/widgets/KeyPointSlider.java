@@ -13,7 +13,7 @@ import com.oskarkoli.timelapserandroid.R;
 import java.util.ArrayList;
 
 /**
- * Widget that handles the adding of screen shots to lower part of screen when a new movement key point is added.
+ * Widget that handles the adding of stream frames to lower part of screen when a new movement key point is added.
  */
 public class KeyPointSlider extends HorizontalScrollView {
 

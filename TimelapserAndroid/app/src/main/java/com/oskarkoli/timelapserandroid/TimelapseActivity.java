@@ -20,14 +20,12 @@ import com.oskarkoli.timelapserandroid.widgets.KeyPointSlider;
 
 
 /**
- * Main UI activity of the appication.
+ * Activity that handles the setting of the key movement points, trough which the robot will move during the timelapse.
  */
 public class TimelapseActivity extends Activity implements SeekBar.OnSeekBarChangeListener {
 
     // Message ids used to communicate between UI thread and other threads.
     public static final int OVERLAY_TEXT = 901;
-    public static final int MSG_START_STEAM = 920;
-    public static final int MSG_END_STEAM = 921;
 
     private StreamManager mStreamManager;
 
@@ -44,7 +42,7 @@ public class TimelapseActivity extends Activity implements SeekBar.OnSeekBarChan
 
 
     private static TimelapseActivity sInstance;
-    public static TimelapseActivity getsInstance() {
+    public static TimelapseActivity getInstance() {
         return sInstance;
     }
 

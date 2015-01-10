@@ -10,6 +10,7 @@ import com.oskarkoli.timelapserandroid.wifi.ApplicationWifiManager;
 
 /**
  * Thread that handles Wifi and Bluetooth connections, and ensures proper state of GoPro camera.
+ * The MainLoop is instantiated once and kept alive trough the whole application lifetime.
  */
 public class MainLoop implements Runnable {
 
@@ -24,6 +25,10 @@ public class MainLoop implements Runnable {
 
     private static MainLoop sInstance;
 
+    /**
+     * Returns the static instance of the loop.
+     * @return
+     */
     public static MainLoop getInstance() {
         return sInstance;
     }
@@ -41,6 +46,10 @@ public class MainLoop implements Runnable {
         mBluetoothManager = new BluetoothManager(activity);
     }
 
+    /**
+     * Sets the Handler used to send messages to the activity.
+     * @param handler
+     */
     public void setUIHandler(Handler handler) {
         mUiHandler = handler;
     }
@@ -101,13 +110,6 @@ public class MainLoop implements Runnable {
                     setOverlayText("GoPro in invalid state. \nReconnecting...");
                     continue;
                 }
-                /*
-                // Checks to make sure GoPro preview is working.
-                if(!mGoProManager.checkPreview()) {
-                    setOverlayText("Preview down...");
-                    continue;
-                }
-                */
 
                 setOverlayText("");
                 sendMessage(Globals.MSG_START);

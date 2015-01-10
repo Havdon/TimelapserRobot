@@ -74,16 +74,17 @@ public class ExecutingActivity extends Activity {
         MovementPlanPoint point = mPlan.getPointAtIndex(0);
         BluetoothThread.getInstance().sendMessageToDevice(point.getMessage());
 
-
         // Change main loop handler, so that this activity recieves the start & pause messages.
         MainLoop.getInstance().setUIHandler(_handler);
-
-
 
         calculateShotLength();
     }
 
 
+    /**
+     * Calculates the time it will take to move trough the movement plan, and take the images.
+     * This is defined by picture frequency and wanted video length.
+     */
     private void calculateShotLength() {
         int sec = (int) (mTimelapseVideoLengthTime.milliseconds() / 1000f);
         int frameCount = sec * 30; // Target time sec * 30 fps = frame count
@@ -110,6 +111,10 @@ public class ExecutingActivity extends Activity {
         intervalFragment.show(getFragmentManager(), "intervalPicker");
     }
 
+    /**
+     * Starts the execution of the movement.
+     * Called by the start button.
+     */
     public void start(View v) {
         mMovementTimeButton.setEnabled(false);
         mIntervalButton.setEnabled(false);
@@ -141,18 +146,17 @@ public class ExecutingActivity extends Activity {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case TIME_SELECTED:
+                case TIME_SELECTED: // Timelapse video length has been selected
                     mTimelapseVideoLengthTime = (TimeObject) msg.obj;
                     mTimelapseVideoLengthTimeText.setText(mTimelapseVideoLengthTime.toString());
                     mPlan.setTimelapseLength(mTimelapseVideoLengthTime);
                     break;
-                case INTERVAL_SELECTED:
-                    // Interval is tracked in minutes and seconds.
+                case INTERVAL_SELECTED: // Picture interval has been selected.
                     mIntervalTime = (TimeObject) msg.obj;
                     mIntervalTimeText.setText(mIntervalTime.toString());
                     mPlan.setIntervalLength(mIntervalTime);
                     break;
-                case APPEND_TEXT:
+                case APPEND_TEXT: // Appends text to the debug info view.
                     String text = (String) msg.obj;
                     mThreadText.append(text + "\n");
                     scrollText();
