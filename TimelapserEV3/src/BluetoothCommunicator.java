@@ -1,16 +1,12 @@
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.util.Collection;
-
-
 
 import com.oskarkoli.timelapserandroid.RobotMessage;
 
 import lejos.hardware.Bluetooth;
-import lejos.remote.nxt.BTConnection;
+import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.remote.nxt.NXTCommConnector;
 import lejos.remote.nxt.NXTConnection;
 import lejos.utility.DebugMessages;
@@ -18,7 +14,7 @@ import lejos.utility.DebugMessages;
 
 
 /**
- * Thread that handles Bluetooth communication with Android device.
+ * Thread that connects to the Android application, and executes all commands send to it by the application.
  */
 public class BluetoothCommunicator extends Thread {
 	
@@ -28,18 +24,18 @@ public class BluetoothCommunicator extends Thread {
 	public static ObjectInputStream inputStream;
 	public static NXTConnection bluetoothConnection;
 	
+	private EV3LargeRegulatedMotor horizontalMotor;
+	private EV3LargeRegulatedMotor verticalMotor;
+	
 	private NXTCommConnector btConnector;
-	
-	private SystemState state;
+
 	private DebugMessages debug;
-	private BTConnection connection;
-	private boolean connected = false;
 	
-	
-	public BluetoothCommunicator(SystemState state, DebugMessages debug) {
-		this.state = state;
+	public BluetoothCommunicator(DebugMessages debug,  EV3LargeRegulatedMotor horizontalMotor, EV3LargeRegulatedMotor verticalMotor) {
 		this.debug = debug;
-		System.out.close();
+		this.horizontalMotor = horizontalMotor;
+		this.verticalMotor = verticalMotor;
+		System.out.close(); // Kills LejOS debug info from showing on robot screen.
 	}
 	
 	
@@ -87,13 +83,13 @@ public class BluetoothCommunicator extends Thread {
 		while(true) {
 			try {
 				RobotMessage robotMessage = (RobotMessage) inputStream.readObject();
-				this.state.horizontalMotor.rotateTo(robotMessage.getHorizontalRotation(), true);
-				this.state.horizontalMotor.setSpeed(robotMessage.getHorizontalSpeed());
-				this.state.horizontalMotor.setAcceleration(robotMessage.getHorizontalAcceleration());
+				this.horizontalMotor.rotateTo(robotMessage.getHorizontalRotation(), true);
+				this.horizontalMotor.setSpeed(robotMessage.getHorizontalSpeed());
+				this.horizontalMotor.setAcceleration(robotMessage.getHorizontalAcceleration());
 				
-				this.state.verticalMotor.rotateTo(robotMessage.getVerticalRotation(), true);
-				this.state.verticalMotor.setSpeed(robotMessage.getVerticalSpeed());
-				this.state.verticalMotor.setAcceleration(robotMessage.getVerticalAcceleration());
+				this.verticalMotor.rotateTo(robotMessage.getVerticalRotation(), true);
+				this.verticalMotor.setSpeed(robotMessage.getVerticalSpeed());
+				this.verticalMotor.setAcceleration(robotMessage.getVerticalAcceleration());
 				debug.echo(robotMessage.toString());
 			} catch (EOFException e) {
 				// There is an error in LejOS which crashes the application if we try to search for connections again after loosing one.
