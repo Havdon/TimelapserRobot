@@ -6,4 +6,4 @@ The idea was to build a Lego Mindstorm robot that would record moving [time laps
 
 * * *
 
-See [wiki](http://havdon.github.io/TimelapserRobot/wiki) and [javadocs](http://havdon.github.io/TimelapserRobot/) for more information!
+See [wiki](https://github.com/Havdon/TimelapserRobot/wiki) and [javadocs](http://havdon.github.io/TimelapserRobot/) for more information!
