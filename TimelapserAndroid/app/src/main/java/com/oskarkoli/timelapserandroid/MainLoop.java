@@ -41,7 +41,7 @@ public class MainLoop implements Runnable {
 
         sInstance = this;
 
-        mWifiManager = new ApplicationWifiManager(activity, "EagleEye", "fagervik");
+        mWifiManager = new ApplicationWifiManager(activity, "GoProSSID", "WIFIpassword");
         mGoProManager = new GoProManager();
         mBluetoothManager = new BluetoothManager(activity);
     }
